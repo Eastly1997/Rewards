@@ -4,13 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.lakbay.rewards.ui.theme.RewardsTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,10 +14,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RewardsTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "World",
-                        modifier = Modifier.padding(innerPadding)
+                Button(onClick ={
+                    throw RuntimeException("Test Crash")
+                }) {
+                    Text(
+                        text = "Test Crash!"
                     )
                 }
             }
@@ -30,18 +26,4 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name! Have a great day~",
-        modifier = modifier
-    )
-}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RewardsTheme {
-        Greeting("Android")
-    }
-}

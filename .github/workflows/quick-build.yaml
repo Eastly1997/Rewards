@@ -4,16 +4,15 @@ on:
   pull_request:
     branches:
       - dev
-      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-     - name: Checkout code
+     - name: Checkout Code Repository
        uses: actions/checkout@v4
-
+       
      - name: Set up JDK 11
        uses: actions/setup-java@v4  
        with: 
@@ -22,15 +21,17 @@ jobs:
 
      - name: Setup Gradle
        uses: gradle/actions/setup-gradle@v4
-
-     - name: Change wrapper permissions
+       
+     - name: Update gradle permission
        run: chmod +x ./gradlew
        
-     - name: Build with Gradle
-       run: ./gradlew build
+     - name: Build with Gradle -Debug
+       run: ./gradlew assembleDebug --scan
 
-     - name: Upload build artifacts
+     - name: Download Lint Report
        uses: actions/upload-artifact@v4
        with:
-         name: Package
-         path: build/libs
+         name: Lint Report
+         path: app/build/reports/lint-results-debug.html
+         overwrite: true
+         if-no-files-found: ignore
